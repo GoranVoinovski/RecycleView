@@ -21,6 +21,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     List<Student> studentList = new ArrayList<>();
 
+    public void setItems(List<Student>students){
+
+        studentList = students;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
@@ -35,6 +40,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
+        Student student = studentList.get(position);
+
+        holder.mojtekst.setText(student.getsName());
+
 
     }
 
