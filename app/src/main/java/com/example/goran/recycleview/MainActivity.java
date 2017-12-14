@@ -1,9 +1,12 @@
 package com.example.goran.recycleview;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +22,11 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        CustomAdapter adapter = new CustomAdapter();
+        CustomAdapter adapter = new CustomAdapter(this);
+
+        adapter.setItems(generateList());
+
+
         myView.setHasFixedSize(true);
         myView.setLayoutManager(new LinearLayoutManager(this));
         myView.setAdapter(adapter);
@@ -27,10 +34,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void generateList() {
 
 
+    ArrayList<Student> generateList() {
 
-      return;
+        ArrayList<Student> studenti = new ArrayList<>();
+
+
+        for (int i = 0; i < 100; i++) {
+
+            if (i%2==0){
+                studenti.add(new Student("Goran  " + i, true));
+            }else {
+                studenti.add(new Student("Goran  " + i, false));
+            }
+        }
+        return studenti;
     }
 }

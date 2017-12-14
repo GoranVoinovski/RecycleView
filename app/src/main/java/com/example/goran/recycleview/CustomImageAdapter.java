@@ -21,16 +21,16 @@ import butterknife.ButterKnife;
  * Created by goran on 7.12.17.
  */
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+public class CustomImageAdapter extends RecyclerView.Adapter<CustomImageAdapter.ViewHolder> {
     Context context;
-    List<Student> studentList = new ArrayList<>();
+    List<ImageData> imageDataList = new ArrayList<>();
 
-    public void setItems(List<Student>students){
+    public void setItems(List<ImageData>images){
 
-        studentList = students;
+        imageDataList = images;
     }
 
-    public CustomAdapter(Context _context) {
+    public CustomImageAdapter(Context _context) {
         context = _context;
     }
 
@@ -41,7 +41,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
 
 
-        View view = inflater.inflate(R.layout.recycler__view_row, parent, false);
+        View view = inflater.inflate(R.layout.image_layout, parent, false);
 
         ViewHolder holder = new ViewHolder(view);
 
@@ -51,34 +51,22 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        Student student = studentList.get(position);
+        ImageData oneImage = imageDataList.get(position);
 
-        holder.mojtekst.setText(student.getsName());
-
-        if (student.issOnline()){
-
-            holder.mojtekst2.setText("Online");
-            holder.mojtekst2.setTextColor(Color.GREEN);
-
-        }else {
-            holder.mojtekst2.setText("Offline");
-            holder.mojtekst2.setTextColor(Color.RED);
-        }
-
-        Picasso.with(context).load("https://maxcdn.icons8.com/Share/icon/Users//user_male_circle_filled1600.png").centerInside().fit().into(holder.slika);
+        holder.tekstTag.setText(oneImage.getTags());
+        Picasso.with(context).load(oneImage.getPreviewURL()).centerInside().fit().into(holder.img);
 
 
     }
 
     @Override
     public int getItemCount() {
-        return studentList.size();
+        return imageDataList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.pic)ImageView slika;
-        @BindView(R.id.textv)TextView mojtekst;
-        @BindView(R.id.textv2)TextView mojtekst2;
+        @BindView(R.id.slika)ImageView img;
+        @BindView(R.id.tagslika)TextView tekstTag;
 
         public ViewHolder(View itemView) {
             super(itemView);
