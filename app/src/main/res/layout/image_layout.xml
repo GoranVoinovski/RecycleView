@@ -11,7 +11,7 @@
         android:id="@+id/tagslika"
         android:text="@string/tag"
         android:textColor="@android:color/black"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/studenti"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
