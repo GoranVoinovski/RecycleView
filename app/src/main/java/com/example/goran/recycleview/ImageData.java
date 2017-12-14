@@ -15,8 +15,8 @@ public class ImageData implements Serializable{
  private String webURL;
  private String userURL;
 
-    public ImageData(String webURL) {
-        this.webURL = webURL;
+    public ImageData(String previewURL) {
+        this.previewURL = previewURL;
 
     }
 

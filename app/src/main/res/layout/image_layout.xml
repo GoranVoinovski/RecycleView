@@ -3,15 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="5dp"
-    android:background="@android:color/darker_gray"
+    android:background="@drawable/studenti"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="150dp">
 
     <TextView
         android:id="@+id/tagslika"
-        android:text="TAG"
+        android:text="@string/tag"
         android:textColor="@android:color/black"
-        android:background="@android:color/white"
+        android:background="@color/colorPrimary"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -19,6 +19,7 @@
     <ImageView
         android:layout_marginTop="5dp"
         android:id="@+id/slika"
+        android:layout_gravity="center"
         android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
