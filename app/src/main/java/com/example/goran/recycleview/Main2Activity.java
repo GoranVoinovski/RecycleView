@@ -1,14 +1,10 @@
 package com.example.goran.recycleview;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
-import com.example.goran.recycleview.FragmentiSliki.Fragment1;
+import android.content.Intent;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -16,46 +12,39 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainImagesActivity extends AppCompatActivity {
+public class Main2Activity extends AppCompatActivity {
 
-    @BindView(R.id.recyclerView)RecyclerView myView;
+    @BindView(R.id.pager)ViewPager mojPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
 
         ButterKnife.bind(this);
 
-        final CustomImageAdapter adapter = new CustomImageAdapter(this, new OnRecycleViewImageClickListener() {
-            @Override
-            public void onRowClick(ImageData imageData, int position) {
+        setUpViewPager(mojPager);
 
-                Intent intent = new Intent(MainImagesActivity.this, Main2Activity.class);
-                intent.putExtra("Position", position);
-                startActivity(intent);
-
-            }
-        });
-
-        adapter.setItems(generateList());
-
-
-
-
-        myView.setHasFixedSize(true);
-        myView.setLayoutManager(new GridLayoutManager(this,2));
-        myView.setAdapter(adapter);
+        Intent pozicija = getIntent();
+        int position = pozicija.getIntExtra("Position",0);
+        mojPager.setCurrentItem(position);
     }
 
-
-
-    ArrayList<ImageData> generateList() {
-
+    public ArrayList<ImageData> getImages (){
 
         ImageModel imageModel = new Gson().fromJson(imagesJson, ImageModel.class);
 
         return imageModel.hits;
+
+    }
+
+    private void setUpViewPager(ViewPager pager) {
+
+        SlikiAdapter adapter = new SlikiAdapter(this.getSupportFragmentManager());
+
+        adapter.addSliki(getImages());
+        pager.setAdapter(adapter);
+
     }
 
     String imagesJson = "{\n" +
@@ -504,4 +493,6 @@ public class MainImagesActivity extends AppCompatActivity {
             "    ],\n" +
             "    \"total\":560758\n" +
             "}";
+
+
 }

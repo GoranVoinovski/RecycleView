@@ -24,14 +24,16 @@ import butterknife.ButterKnife;
 public class CustomImageAdapter extends RecyclerView.Adapter<CustomImageAdapter.ViewHolder> {
     Context context;
     List<ImageData> imageDataList = new ArrayList<>();
+    OnRecycleViewImageClickListener onRecycleViewImageClickListener;
 
     public void setItems(List<ImageData>images){
 
         imageDataList = images;
     }
 
-    public CustomImageAdapter(Context _context) {
+    public CustomImageAdapter(Context _context, OnRecycleViewImageClickListener _onRecycleViewImageClickListener) {
         context = _context;
+        onRecycleViewImageClickListener = _onRecycleViewImageClickListener;
     }
 
     @Override
@@ -49,11 +51,18 @@ public class CustomImageAdapter extends RecyclerView.Adapter<CustomImageAdapter.
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        ImageData oneImage = imageDataList.get(position);
+        final ImageData oneImage = imageDataList.get(position);
 
         holder.tekstTag.setText(oneImage.getTags());
+        holder.img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRecycleViewImageClickListener.onRowClick(oneImage,position);
+            }
+        });
+
         Picasso.with(context).load(oneImage.getPreviewURL()).centerInside().fit().into(holder.img);
 
 
